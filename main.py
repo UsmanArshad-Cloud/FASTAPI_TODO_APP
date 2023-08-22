@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException
 from pydantic import Field, BaseModel
-
+from auth import get_current_user,get_user_exception
 from Database import SessionLocal, engine
 import Models
 from sqlalchemy.orm import Session
@@ -28,7 +28,10 @@ def get_db():  # Creating Database Session
 
 
 @app.get("/")
-async def ReadAllTodos(db: Session = Depends(get_db)):
+async def ReadAllTodos(user: dict = Depends(get_current_user),
+                       db: Session = Depends(get_db)):
+    if user is None:
+        raise get_user_exception()
     return db.query(Models.Todos).all()
 
 
