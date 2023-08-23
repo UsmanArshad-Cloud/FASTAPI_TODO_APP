@@ -1,4 +1,5 @@
 USE todo_app;
+DROP TABLE IF EXISTS todos;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -7,7 +8,7 @@ email varchar(200) DEFAULT NULL,
 username varchar(45) DEFAULT NULL,
 first_name varchar(45) DEFAULT NULL,
 last_name varchar(45) DEFAULT NULL,
-hashed_password varchar(200) DEFAULT NULL,
+hashed_pwd varchar(200) DEFAULT NULL,
 is_active int(1) DEFAULT NULL,
 PRIMARY KEY(id)
 )ENGINE = InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
