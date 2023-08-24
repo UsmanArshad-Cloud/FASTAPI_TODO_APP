@@ -82,6 +82,7 @@ class User(BaseModel):
     first_name: str
     last_name: str
     password: str
+    phone_number:str
 
 
 @router.get("/")
@@ -97,6 +98,7 @@ async def CreateNewUser(user: User, db: Session = Depends(get_db)):
     new_user.first_name = user.first_name
     new_user.last_name = user.last_name
     new_user.hashed_pwd = hash_pwd(user.password)
+    new_user.phone_number = user.phone_number
 
     db.add(new_user)
     db.commit()
