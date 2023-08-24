@@ -84,9 +84,9 @@ class User(BaseModel):
     password: str
 
 
-# @router.get("/")
-# async def GetAllUsers(db: Session = Depends(get_db)):
-#     return db.query(Models.Users).all()
+@router.get("/")
+async def GetAllUsers(db: Session = Depends(get_db)):
+    return db.query(Models.Users).all()
 
 
 @router.post("/create/users")
@@ -108,9 +108,7 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(),
                            db: Session = Depends(get_db)):
     user = authenticate_user(form_data.username, form_data.password, db)
     if user is None:
-        print("Hello")
         raise http_exception()
-    print("Not")
     token_expires = timedelta(minutes=20)
     token = create_access_token(user.username, user.id, token_expires)
     return {"token", token}
